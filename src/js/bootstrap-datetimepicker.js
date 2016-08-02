@@ -322,7 +322,16 @@
                     row.push($('<td>').append($('<a>').attr({'data-action':'today', 'title': options.tooltips.today}).append($('<span>').addClass(options.icons.today))));
                 }
                 if (!options.sideBySide && hasDate() && hasTime()) {
-                    row.push($('<td>').append($('<a>').attr({'data-action':'togglePicker', 'title': options.tooltips.selectTime}).append($('<span>').addClass(options.icons.time))));
+                    row.push($('<td>').append($('<a>').attr({
+                        'data-action':'togglePicker',
+                        'title': options.tooltips.selectTime
+                    }).append($('<span>').addClass(options.icons.time))));
+                    if (options.tabSwitch) {
+                        row.push($('<td>').append($('<a>').attr({
+                            'data-action':'togglePicker',
+                            'title': options.tooltips.selectTime
+                        }).append($('<span>').addClass(options.icons.date))));
+                    }
                 }
                 if (options.showClear) {
                     row.push($('<td>').append($('<a>').attr({'data-action':'clear', 'title': options.tooltips.clear}).append($('<span>').addClass(options.icons.clear))));
@@ -367,6 +376,17 @@
                     return template;
                 }
 
+                if (options.tabSwitch) {
+                    content.append($('<li>').addClass((options.collapse && hasTime() ? 'collapse in' : '')).append(dateView));
+                    content.append($('<li>').addClass((options.collapse && hasDate() ? 'collapse' : '')).append(timeView));
+                    content.append(toolbar);
+                    return template.append(content);
+                }
+
+                // the default layout
+                //   [time picker]
+                //   [toolbar]
+                //   [date picker]
                 if (options.toolbarPlacement === 'top') {
                     content.append(toolbar);
                 }
@@ -1080,11 +1100,14 @@
                             expanded.removeClass('in');
                             closed.addClass('in');
                         }
-                        if ($this.is('span')) {
-                            $this.toggleClass(options.icons.time + ' ' + options.icons.date);
-                        } else {
-                            $this.find('span').toggleClass(options.icons.time + ' ' + options.icons.date);
-                        }
+
+                        if (!options.tabSwitch) {
+                            if ($this.is('span')) {
+                                $this.toggleClass(options.icons.time + ' ' + options.icons.date);
+                            } else {
+                                $this.find('span').toggleClass(options.icons.time + ' ' + options.icons.date);
+                            }
+                        } 
 
                         // NOTE: uncomment if toggled state will be restored in show()
                         //if (component) {
@@ -1984,6 +2007,9 @@
             return picker;
         };
 
+        picker.tabSwitch = function(tabSwitch) {
+        };
+
         picker.showTodayButton = function (showTodayButton) {
             if (arguments.length === 0) {
                 return options.showTodayButton;
@@ -2425,6 +2451,7 @@
         viewMode: 'days',
         toolbarPlacement: 'default',
         showTodayButton: false,
+        tabSwitch: false,
         showClear: false,
         showClose: false,
         widgetPositioning: {
