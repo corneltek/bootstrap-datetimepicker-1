@@ -1107,7 +1107,7 @@
                             } else {
                                 $this.find('span').toggleClass(options.icons.time + ' ' + options.icons.date);
                             }
-                        } 
+                        }
 
                         // NOTE: uncomment if toggled state will be restored in show()
                         //if (component) {
@@ -2007,9 +2007,6 @@
             return picker;
         };
 
-        picker.tabSwitch = function(tabSwitch) {
-        };
-
         picker.showTodayButton = function (showTodayButton) {
             if (arguments.length === 0) {
                 return options.showTodayButton;
@@ -2258,6 +2255,10 @@
             return picker;
         };
 
+        picker.tabSwitch = function (tabSwitch) {
+            options.tabSwitch = tabSwitch;
+        };
+
         picker.enabledHours = function (hours) {
             ///<signature helpKeyword="$.fn.datetimepicker.enabledHours">
             ///<summary>Returns an array with the currently set enabled hours on the component.</summary>
@@ -2451,7 +2452,6 @@
         viewMode: 'days',
         toolbarPlacement: 'default',
         showTodayButton: false,
-        tabSwitch: false,
         showClear: false,
         showClose: false,
         widgetPositioning: {
@@ -2574,6 +2574,7 @@
         disabledTimeIntervals: false,
         disabledHours: false,
         enabledHours: false,
+        tabSwitch: false,
         viewDate: false
     };
 }));
