@@ -322,16 +322,28 @@
                     row.push($('<td>').append($('<a>').attr({'data-action':'today', 'title': options.tooltips.today}).append($('<span>').addClass(options.icons.today))));
                 }
                 if (!options.sideBySide && hasDate() && hasTime()) {
-                    row.push($('<td>').append($('<a>').attr({
-                        'data-action':'togglePicker',
-                        'title': options.tooltips.selectTime
-                    }).append($('<span>').addClass(options.icons.time))));
+
                     if (options.tabSwitch) {
-                        row.push($('<td>').append($('<a>').attr({
+                        row.push($('<td>').append(
+                            $('<a>').attr({
+                                'data-action':'togglePicker',
+                                'title': options.tooltips.selectTime
+                            })
+                            .append($('<i>').addClass(options.icons.date))
+                            .append(' Set Date')
+                        ));
+                    }
+
+                    row.push($('<td>').append(
+                        $('<a>').attr({
                             'data-action':'togglePicker',
                             'title': options.tooltips.selectTime
-                        }).append($('<span>').addClass(options.icons.date))));
-                    }
+                        })
+                        .append($('<i>').addClass(options.icons.time))
+                        .append(' Set Time')
+                    ));
+
+
                 }
                 if (options.showClear) {
                     row.push($('<td>').append($('<a>').attr({'data-action':'clear', 'title': options.tooltips.clear}).append($('<span>').addClass(options.icons.clear))));
@@ -2382,7 +2394,7 @@
      *
      ********************************************************************************/
 
-    $.fn.datetimepicker = function (options) {
+    $.fn.datetimepicker = $.fn.b3picker = function (options) {
         return this.each(function () {
             var $this = $(this);
             if (!$this.data('DateTimePicker')) {
