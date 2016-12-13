@@ -73,15 +73,6 @@ module.exports = function (grunt) {
             }
         },
 
-        jscs: {
-            all: [
-                'Gruntfile.js', 'src/js/*.js', 'test/*.js'
-            ],
-            options: {
-                config: '.jscs.json'
-            }
-        },
-
         less: {
             production: {
                 options: {
