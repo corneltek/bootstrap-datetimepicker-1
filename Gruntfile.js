@@ -142,12 +142,12 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'jscs', 'less', 'jasmine']);
+    grunt.registerTask('default', ['jshint',  'less', 'jasmine']);
 
     // travis build task
     grunt.registerTask('build:travis', [
         // code style
-        'jshint', 'jscs',
+        'jshint',
         // build
         'uglify', 'less',
         // tests
@@ -156,10 +156,10 @@ module.exports = function (grunt) {
 
     // Task to be run when building
     grunt.registerTask('build', [
-        'jshint', 'jscs', 'uglify', 'less'
+        'jshint', 'uglify', 'less'
     ]);
 
-    grunt.registerTask('test', ['jshint', 'jscs', 'uglify', 'less', 'jasmine']);
+    grunt.registerTask('test', ['jshint', 'uglify', 'less', 'jasmine']);
 
     grunt.registerTask('docs', 'Generate docs', function () {
         grunt.util.spawn({
